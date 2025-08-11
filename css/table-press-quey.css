@@ -1,0 +1,377 @@
+.kcm-cartouche-button-wrapper {
+    display: inline-block; /* BELANGRIJK: Maakt de wrapper inline */
+    margin-right: 10px;    /* Ruimte rechts van elke knop-wrapper */
+    margin-bottom: 10px;   /* Ruimte onder elke knop-wrapper (voor als ze wrappen) */
+
+}
+
+.kcm-cartouche-button {
+    display: inline-block;
+    /*background-color: #f0f0f0; */
+    color: var(--ast-global-color-0);
+    margin-right:10px;
+    border: 1px solid var(--ast-global-color-0);;
+    padding: 3px 10px; /* Iets kleinere padding voor inline flow misschien? */
+    border-radius: 20px;
+    text-decoration: none;
+    font-size: 0.9em; /* Iets kleiner lettertype voor inline flow? */
+    line-height: 1.3;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.kcm-cartouche-button:hover,
+.kcm-cartouche-button:focus {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+    color: #111;
+    outline: none;
+}
+
+.kcm-cartouche-button-text {
+    vertical-align: middle;
+}
+.parent-of-table-press-query {
+    display: flex;          /* Enable flexbox */
+    max-width: var(--wp--custom--ast-content-width-size);
+    margin: 0 auto; /* Center the container itself */
+    /* Other styles */
+  }
+/* General container for the table */
+.table-press-query {
+    display: inline-block; /* Make the container only as wide as its content */
+    margin-bottom: 1em; /* Add some space below the table */
+}
+
+/* Styles for the table title */
+.table-press-query-title {
+    font-size: 1.4em; /* Make the title bigger */
+    font-weight: bold;
+    text-align: left; /* Align the title to the left */
+    margin-bottom: 0.5em; /* Add some space below the title */
+}
+
+/* Styles for the table */
+.table-press-query-table {
+    border-collapse: collapse; /* Remove spacing between cells */
+    border: 1px solid; /* Add a black border around the entire table */
+    padding: 0.2em; /* Add some padding inside the table */
+    margin: 0;/*remove the margin, so the table will only fill the available content */
+}
+
+/* Styles for table header cells */
+.table-press-query-table thead th {
+    text-align: left; /* Align header text to the left */
+    border: none;/*remove the border, so the content will fill the available content */
+    margin: 0;/*remove the margin, so the content will fill the available content */
+    padding-right: 1em; /* Add some spacing to the right of header text */
+    border: none; /* Remove the border for the header */
+    padding-bottom: 0.5em; /* Add spacing below the header */
+
+}
+
+/* Styles for table data cells */
+.table-press-query-table tbody td {
+    text-align: left; /* Align cell content to the left */
+    border: none;/*remove the border, so the content will fill the available content */
+    padding-right: 1em; /* Add some spacing to the right of cells */
+
+}
+
+.table-press-query-table.taakgroep-css-class{
+/* styles for the given class */
+}
+.wp-block-image.alignright {
+    float: right;
+    margin: 0 0 1em 1em; /* Adjust spacing as needed */
+}
+
+.wp-block-image.alignleft {
+    float: left;
+    margin: 0 1em 1em 0; /* Adjust spacing as needed */
+}
+
+.parent-of-table-press-query{
+    margin-bottom: 20px;
+}
+
+.table-press-query-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.table-press-query-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.parent-of-table-press-query{
+    margin-bottom: 20px;
+}
+
+.table-press-query-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.table-press-query-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.parent-of-table-press-query{
+    margin-bottom: 20px;
+}
+
+.table-press-query-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.table-press-query-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#astra-footer-menu .menu-item {
+    background-color: #eeeeee;
+}
+
+#astra-footer-menu .hover-menu-item {
+    background-color: #cccccc;
+}
+
+#astra-footer-menu {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.contact-cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px; /* Add spacing between cards */
+}
+
+.contact-card {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    width: 500px; /* Adjust width as needed */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+}
+/* Styling for .contact-card when inside .diensten-css-class */
+.diensten-css-class .contact-card, .procedures-css-class .contact-card {
+    width: 100%;
+    /* Take up the full width of the parent */
+    max-width: none;
+    /* Remove max-width */
+    padding: 15px;
+    /* Add some padding */
+}
+
+.card-row {
+    display: flex;
+    margin-bottom: 5px;
+    align-items: baseline;
+    gap: 5px; /* Add spacing between label and value */
+}
+
+.card-label {
+    font-weight: bold;
+}
+
+.card-value {
+}
+/* Example of how to style specific columns: */
+.column-naam-label {
+    width: 100px;
+}
+
+.column-naam-value {
+    font-weight: bold; /* Make the name bold */
+}
+
+.column-bijzonderheden-label {
+    width: 120px;
+}
+
+.column-bijzonderheden-value {
+}
+.entry-meta .posted-by{
+display:none;
+}
+.search-results .entry-content{
+    display:none;
+}
+/* General Rules for images (including MetaSlider images) */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Media query for screens smaller than 768px (typical mobile screen) */
+@media (max-width: 768px) {
+    /* Constrain the main content area */
+        .site-content {
+            overflow-x: hidden;
+            /* Prevent horizontal overflow */
+        }
+
+  /* Horizontal scrolling for tables */
+  .table-press-query-slider {
+      width: 100%;
+      /* Take full width of container */
+      overflow-x: auto;
+      /* Enable horizontal scrolling */
+      -webkit-overflow-scrolling: touch;
+      /* For smooth scrolling on iOS */
+      /* Add the right shadow (new) */
+      box-shadow: inset -20px 0 20px -20px rgba(0, 0, 0, 0.4);
+  }
+
+  .table-press-query-table {
+      width: fit-content;
+      display: table;
+  }
+
+  /*card-view for tables*/
+  .parent-of-table-press-query {
+      width: 100%;
+  }
+
+  .contact-cards-container {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      /* Add spacing between cards */
+  }
+
+  .contact-card {
+      flex-basis: calc(100% - 20px);
+      /* Cards take full width minus gap */
+      max-width: calc(100% - 20px);
+      box-sizing: border-box;
+      /* Include padding and border in width */
+      width: auto;
+      overflow-wrap: break-word;
+  }
+
+  .table-press-query-table td {
+      white-space: nowrap;
+  }
+  /*meta-slider settings*/
+  .metaslider {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0px !important;
+    position: relative; /* Required for absolutely positioned buttons */
+    overflow: hidden; /* Clip any overflowing content (like buttons) */
+  }
+  .metaslider > * {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0px !important;
+  }
+  .metaslider .rslides li {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0px !important;
+  }
+  .metaslider img {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0px !important;
+  }
+  .metaslider .msSlide {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0px !important;
+  }
+  /* Position the next and previous buttons */
+  .metaslider .rslides_nav {
+    position: absolute; /* Absolute positioning */
+    top: 50%; /* Vertically center */
+    transform: translateY(-50%); /* Vertically center */
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
+    background-color: rgba(0, 0, 0, 0.5); /* Adjust as needed */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .metaslider .rslides_nav.next {
+    right: 10px; /* Position on the right */
+  }
+
+  .metaslider .rslides_nav.prev {
+    left: 10px; /* Position on the left */
+  }
+
+  /* Control how page titles break */
+  .entry-header .entry-title {
+      word-wrap: break-word;
+      /* Break long words */
+      overflow-wrap: break-word;
+      /* For older browsers */
+      hyphens: auto;
+  }
+  /* Move the Astra hamburger button to the top-right (mobile) */
+  .site-header-primary-section-right {
+    justify-content: flex-end; /* Align to the right */
+  }
+  .ast-mobile-menu-trigger-minimal {
+      display: flex !important; /* Remove inline style if present */
+  }
+  .ast-button-wrap {
+      display: flex;
+  }
+}
+
+/* Show the table on larger screens */
+@media (min-width: 769px) {
+  .parent-of-table-press-query {
+    /*display: none;*/
+  }
+  .table-press-query-slider {
+    overflow-x: hidden;
+  }
+
+}
+/* Show the table on larger screens */
+@media (min-width: 769px) {
+    .parent-of-table-press-query {
+        /*display: none;*/
+    }
+
+    .table-press-query-slider {
+        overflow-x: hidden;
+    }
+}
+
+
+/* Show the table on larger screens */
+@media (min-width: 769px) {
+  .parent-of-table-press-query {
+    /*display: none;*/
+  }
+  .table-press-query-slider {
+    overflow-x: hidden;
+  }
+
+}
+/* Show the table on larger screens */
+@media (min-width: 769px) {
+    .parent-of-table-press-query {
+        /*display: none;*/
+    }
+
+    .table-press-query-slider {
+        overflow-x: hidden;
+    }
+}

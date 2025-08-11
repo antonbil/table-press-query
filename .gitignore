@@ -1,0 +1,17 @@
+# Besturingssysteem bestanden
+.DS_Store
+Thumbs.db
+
+# IDE mappen (pas aan naar je IDE)
+.idea/
+.vscode/
+# *.sublime-workspace
+# *.sublime-project
+
+# Lokale configuratie (indien van toepassing)
+# local-config.php
+
+# ZIP bestanden van de plugin
+*.zip
+# sh bestanden
+*.sh
