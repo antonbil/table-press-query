@@ -151,10 +151,6 @@ A: The AJAX contact form uses WordPress nonces to protect against CSRF attacks. 
 *   Introduced `[tablepress-generic-contact]` shortcode for displaying contact information and an AJAX email form.
 *   Basic internationalization support with `.pot` file.
 
-## Upgrade Notice
-
-*(Add any specific instructions here if relevant for future updates, e.g., "Version 1.1 requires re-saving shortcodes due to attribute changes.")*
-
 ## Contributing
 
 Contributions are welcome! If you have suggestions, bug reports, or want to contribute code, please feel free to:
