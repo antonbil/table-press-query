@@ -145,7 +145,7 @@ A: The AJAX contact form uses WordPress nonces to protect against CSRF attacks. 
 
 ## Changelog
 
-### 1.0.0 - YYYY-MM-DD
+### 1.0.0 - 2025-08-11
 *   Initial release.
 *   Introduced `[tablepress-query]` shortcode for displaying filtered TablePress data.
 *   Introduced `[tablepress-generic-contact]` shortcode for displaying contact information and an AJAX email form.
