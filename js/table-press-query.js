@@ -1,9 +1,9 @@
 jQuery(document).ready(function($) {
 
     // --- Configuration and Helper Functions ---
-    // The 'kcm_ajax_object' is now available thanks to wp_localize_script
-    var ajaxUrl = kcm_ajax_object.ajax_url;
-    // var getFormNonce = kcm_ajax_object.nonce; // If you use a nonce for fetching the form
+    // The 'tpq_ajax_object' is now available thanks to wp_localize_script
+    var ajaxUrl = tpq_ajax_object.ajax_url;
+    // var getFormNonce = tpq_ajax_object.nonce; // If you use a nonce for fetching the form
 
     // Helper function to escape HTML (good to have)
     function escapeHtml(unsafe) {
@@ -70,7 +70,7 @@ jQuery(document).ready(function($) {
             url: ajaxUrl,
             type: 'POST',
             data: {
-                action: 'kcm_get_contact_form', // PHP action hook for getting the form
+                action: 'tpq_get_contact_form', // PHP action hook for getting the form
                 recipient_name: recipientName,
                 recipient_email: recipientEmail, // Important for PHP to know which form to generate for
                 task_group: taskGroup
@@ -117,10 +117,10 @@ jQuery(document).ready(function($) {
         $feedbackDiv.html('').hide(); // Clear previous feedback and hide
 
         $.ajax({
-            url: ajaxUrl, // Use the localized ajax_url from kcm_ajax_object
+            url: ajaxUrl, // Use the localized ajax_url from tpq_ajax_object
             type: 'POST',
             data: $form.serialize(), // serialize() includes action, nonce, and all form fields from the <form>
-            dataType: 'json', // Expect a JSON response from the PHP handler kcm_send_contact_email_callback
+            dataType: 'json', // Expect a JSON response from the PHP handler tpq_send_contact_email_callback
             beforeSend: function() {
                 $submitButton.prop('disabled', true).val('Sending...'); // Disable button and show sending state
             },
@@ -161,7 +161,7 @@ jQuery(document).ready(function($) {
     // Optional: If you want a way to explicitly close the form
     // (e.g., a close button inside the dynamically loaded form)
     // This also needs event delegation.
-    // Your PHP (kcm_get_contact_form_callback) would need to include a button like:
+    // Your PHP (tpq_get_contact_form_callback) would need to include a button like:
     // <button type="button" class="kcm-close-form-button">Close</button>
     $('body').on('click', '.kcm-dynamic-form-container .kcm-close-form-button', function(e) {
         e.preventDefault();
