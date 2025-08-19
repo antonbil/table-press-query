@@ -1,6 +1,6 @@
 # TablePress Query
 
-**Contributors:** Anton Bil
+**Author:** [Anton Bil](https://familiebil.nl/anton)
 **Tags:** tablepress, query, shortcode, filter, display, contact, email
 **Requires at least:** 6.8.0
 **Tested up to:** (WordPress versie waarmee je getest hebt, bijv. 6.5)
