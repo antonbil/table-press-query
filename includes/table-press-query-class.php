@@ -446,14 +446,14 @@ class TablePressQuery
     /**
      * Get the table-data of the given table.
      */
-    public function get_table_data(int $table_id)
+     public function get_table_data(int $table_id): ?array
     {
         // Get the table post
         $table_post = get_post($table_id);
 
         // Check if the table post exists and is of the correct type
         if (!$table_post || $table_post->post_type !== 'tablepress_table') {
-            error_log("TablePress table with id: " . $table_id . " not found.");
+            error_log("TablePressQuery: Table with id " . $table_id . " not found or not a TablePress table.");
             return null;
         }
 
@@ -461,25 +461,116 @@ class TablePressQuery
         $table_data_json = $table_post->post_content;
 
         // Check if data is present
-        if (!$table_data_json) {
-            error_log("Missing table data for TablePress table with id: " . $table_id . ".");
-            return null;
-        }
-        //decode the json-string to an array
-        $table_data = json_decode($table_data_json);
-
-        //check if json-decode was succesfull
-        if (!$table_data) {
-            error_log("Error json-decoding table data for TablePress table with id: " . $table_id . ".");
+        if (empty($table_data_json)) {
+            error_log("TablePressQuery: Missing table data for table id " . $table_id . ".");
             return null;
         }
 
-        //check if it is an array
-        if (!is_array($table_data)) {
-            error_log("Table data for TablePress table with id: " . $table_id . " not an array.");
+        // Decode the JSON string to an array.
+        // TablePress' post_content is meestal al een JSON array, dus zonder 'true' voor assoc is prima.
+        $raw_table_data = json_decode($table_data_json);
+
+        // Check for JSON decoding errors
+        if (json_last_error() !== JSON_ERROR_NONE) {
+            error_log("TablePressQuery: Error json-decoding table data for table id " . $table_id . ". Error: " . json_last_error_msg());
             return null;
         }
-        return $table_data; //$this->table_title;//.
+
+        // Ensure the decoded data is an array (array of rows)
+        if (!is_array($raw_table_data)) {
+            error_log("TablePressQuery: Table data for table id " . $table_id . " is not an array after JSON decoding.");
+            return null;
+        }
+
+        // --- Filter Runner via WordPress Hooks ---
+        // Haal de lijst van filter-callbacks op via een WordPress filter hook.
+        // De tweede parameter van apply_filters is een array van standaard filters.
+        $filter_callbacks = apply_filters('tpq_cell_data_filters', $this->get_default_cell_data_filters(), $table_id, $this);
+                                        // ^ Hook naam          ^ Standaard filters      ^ Extra args voor de hook
+
+        $processed_table_data = [];
+        foreach ($raw_table_data as $row_index => $row_data) {
+            // Check of de rij zelf wel een array is (array van cellen)
+            if (!is_array($row_data)) {
+                // Optie: log een waarschuwing en sla de rij over, of behoud de niet-array rij
+                error_log("TablePressQuery: Row $row_index in table $table_id is not an array. Skipping filtering for this row.");
+                $processed_table_data[$row_index] = $row_data; // Behoud de originele niet-array rij
+                continue;
+            }
+
+            $processed_row = [];
+            foreach ($row_data as $cell_index => $cell_value) {
+                $filtered_cell_value = $cell_value; // Start met de originele celwaarde
+
+                if (!empty($filter_callbacks) && is_array($filter_callbacks)) {
+                    foreach ($filter_callbacks as $filter_callback) {
+                        if (is_callable($filter_callback)) {
+                            // Geef de $filtered_cell_value door, zodat filters geketend kunnen worden.
+                            // Geef ook de originele celwaarde, context, etc. mee als dat nuttig is voor filters.
+                            $filtered_cell_value = call_user_func($filter_callback, $filtered_cell_value, $cell_value, $row_index, $cell_index, $table_id, $this);
+                        } else {
+                            error_log("TablePressQuery: A registered cell data filter is not callable: " . print_r($filter_callback, true));
+                        }
+                    }
+                }
+                $processed_row[$cell_index] = $filtered_cell_value;
+            }
+            $processed_table_data[$row_index] = $processed_row;
+        }
+        // --- Einde Filter Runner ---
+
+        return $processed_table_data;
+    }
+
+    /**
+     * Returns an array of default filter callbacks for cell data.
+     * These are used if no filters are added/modified via the 'tpq_cell_data_filters' hook.
+     *
+     * @return array An array of callable filter functions.
+     */
+    protected function get_default_cell_data_filters(): array
+    {
+        return [
+            // Voeg hier methodenamen van deze class toe, of globale functienamen
+            // die je als standaard filters wilt toepassen.
+            [$this, 'filter_br_to_newline_for_textarea'],
+            // Voorbeeld: 'some_global_utility_trim_function',
+            // Zorg ervoor dat deze methoden/functies bestaan en de juiste parameters accepteren.
+            // De parameters die ze ontvangen zijn: $current_filtered_value, $original_cell_value, $row_idx, $cell_idx, $table_id, $query_object
+
+            //[$this, 'filter_backtick_to_apostrophe'], // Vervangt ` door '
+        ];
+    }
+
+    /**
+     * Example Filter: Converts <br> tags to newline characters (\n).
+     */
+    public function filter_br_to_newline_for_textarea($filtered_value, $original_value = null, $row_index = null, $cell_index = null, $table_id = null, $query_object = null)
+    {
+        if (!is_string($filtered_value)) {
+            return $filtered_value;
+        }
+        return preg_replace('#<br\s*/?>#i', "\n", $filtered_value);
+    }
+
+/**
+     * Filter: Converts backticks (`) to apostrophes (').
+     *
+     * @param mixed $filtered_value The current value after previous filters.
+     * @param mixed $original_value The original cell value (niet gebruikt in dit simpele filter).
+     * @param int   $row_index      The index of the current row (niet gebruikt).
+     * @param int   $cell_index     The index of the current cell (niet gebruikt).
+     * @param int   $table_id       The ID of the table (niet gebruikt).
+     * @param self  $query_object   The TablePressQuery object instance (niet gebruikt).
+     * @return mixed The processed string, or original data if not a string.
+     */
+    public function filter_backtick_to_apostrophe($filtered_value, $original_value = null, $row_index = null, $cell_index = null, $table_id = null, $query_object = null)
+    {
+        // $filtered_value is de waarde die je moet aanpassen.
+        if (!is_string($filtered_value)) {
+            return $filtered_value;
+        }
+        return str_replace('`', "'", $filtered_value);
     }
 
     /**
